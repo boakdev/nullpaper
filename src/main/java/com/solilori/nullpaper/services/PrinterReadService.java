@@ -4,6 +4,8 @@ import com.solilori.nullpaper.dto.PrinterReadDto;
 import com.solilori.nullpaper.entities.PrinterRead;
 import com.solilori.nullpaper.repositories.PrinterReadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +32,20 @@ public class PrinterReadService {
         copyDtoToEntity(dto, entity);
         entity = printerReadRepository.save(entity);
         return new PrinterReadDto(entity);
+    }
+
+    @Transactional
+    public void delete(Long id) {
+
+        try {
+            printerReadRepository.deleteById(id);
+
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("ID not found");
+
+        } catch (DataIntegrityViolationException e) {
+            System.out.println("Integrity violation");
+        }
     }
 
 
