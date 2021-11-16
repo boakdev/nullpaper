@@ -1,13 +1,11 @@
 package com.solilori.nullpaper.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
+@Table(name = "tb_computer")
 public class Computer implements Serializable {
 
     @Id
