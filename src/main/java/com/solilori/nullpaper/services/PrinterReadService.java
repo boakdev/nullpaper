@@ -25,6 +25,12 @@ public class PrinterReadService {
         return list.stream().map(x -> new PrinterReadDto(x)).collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<PrinterReadDto> findBySerialPrinter(String serie) {
+        List<PrinterRead> list = printerReadRepository.findBySerialNumber(serie);
+        return list.stream().map(x -> new PrinterReadDto(x)).collect(Collectors.toList());
+    }
+
 
     @Transactional
     public PrinterReadDto insert(PrinterReadDto dto) {

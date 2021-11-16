@@ -26,6 +26,12 @@ public class PrinterReadController {
 
     }
 
+    @GetMapping("/{serial}")
+    public ResponseEntity<List<PrinterReadDto>> findBySerialPrinter(@PathVariable String serial) {
+        List<PrinterReadDto> listDto = printerReadService.findBySerialPrinter(serial);
+        return ResponseEntity.ok().body(listDto);
+    }
+
     @PostMapping
     public ResponseEntity<PrinterReadDto> insert(@RequestBody PrinterReadDto dto) {
         dto = printerReadService.insert(dto);
