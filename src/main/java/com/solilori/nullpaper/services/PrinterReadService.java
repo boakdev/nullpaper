@@ -9,7 +9,11 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,7 +40,45 @@ public class PrinterReadService {
     public PrinterReadDto insert(PrinterReadDto dto) {
         PrinterRead entity = new PrinterRead();
         copyDtoToEntity(dto, entity);
-        entity = printerReadRepository.save(entity);
+
+        boolean persist = true;
+
+        ZoneId zone = ZoneId.of("America/Sao_Paulo");
+        Optional<LocalDate> dateOpt = Optional.of(LocalDate.ofInstant(entity.getDate(), zone));
+        LocalDate dateReadEntity = dateOpt.get();
+        System.out.println("Data da entidade POST: " + dateReadEntity);
+
+        List<PrinterRead> listPrinterRead = printerReadRepository.findBySerialNumber(entity.getSerialNumber());
+        System.out.println("Lista de Leituras: " + listPrinterRead);
+
+        if (listPrinterRead.isEmpty()) {
+            System.out.println("Entrou no IF da lista vazia - PERSISTIU");
+            entity = printerReadRepository.save(entity);
+            return new PrinterReadDto(entity);
+        }
+
+        if (listPrinterRead.size() > 0) {
+
+            for (PrinterRead p : listPrinterRead) {
+
+                Optional<LocalDate> dateReadListOpt = Optional.of(LocalDate.ofInstant(p.getDate(), zone));
+                LocalDate dateReadList = dateReadListOpt.get();
+                System.out.println("Data do obj lista: " + dateReadList);
+
+                if (dateReadEntity.equals(dateReadList)) {
+                    System.out.println("Entrou no IF de data igual - valor persist FALSE");
+                    persist = false;
+                }
+            }
+        }
+
+        if (persist) {
+            System.out.println("entrou no IF de PERSIST");
+            entity = printerReadRepository.save(entity);
+            return new PrinterReadDto(entity);
+        }
+
+        System.out.println("Não persistiu a leitura!");
         return new PrinterReadDto(entity);
     }
 
@@ -66,6 +108,5 @@ public class PrinterReadService {
         entity.setDate(dto.getDate());
         entity.setComputer(dto.getComputer());
     }
-
 
 }
