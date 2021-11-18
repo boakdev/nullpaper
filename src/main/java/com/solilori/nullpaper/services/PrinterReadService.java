@@ -3,6 +3,9 @@ package com.solilori.nullpaper.services;
 import com.solilori.nullpaper.dto.PrinterReadDto;
 import com.solilori.nullpaper.entities.PrinterRead;
 import com.solilori.nullpaper.repositories.PrinterReadRepository;
+import com.solilori.nullpaper.services.exceptions.DatabaseException;
+import com.solilori.nullpaper.services.exceptions.ResourceExistOnDayException;
+import com.solilori.nullpaper.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -76,10 +79,10 @@ public class PrinterReadService {
             System.out.println("entrou no IF de PERSIST");
             entity = printerReadRepository.save(entity);
             return new PrinterReadDto(entity);
-        }
 
-        System.out.println("Não persistiu a leitura!");
-        return new PrinterReadDto(entity);
+        } else {
+            throw new ResourceExistOnDayException("printer has already been registered today - Serial: " + entity.getSerialNumber());
+        }
     }
 
     @Transactional
@@ -89,10 +92,10 @@ public class PrinterReadService {
             printerReadRepository.deleteById(id);
 
         } catch (EmptyResultDataAccessException e) {
-            System.out.println("ID not found");
+            throw new ResourceNotFoundException("PrinterRead ID not found " + id);
 
         } catch (DataIntegrityViolationException e) {
-            System.out.println("Integrity violation");
+            throw new DatabaseException("Integrity violation");
         }
     }
 
