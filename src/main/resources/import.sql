@@ -6,3 +6,8 @@ INSERT INTO tb_computer (computer_name, user_name, user_folder, nameos, versiono
 INSERT INTO tb_printerread (manufacturer, model, serial_number, ip_address, toner_remaining, toner_capacity, total_pages, date, computer_id) VALUES ('Lexmark', 'MX410', 'SN444', '192.168.1.151', 1500, 10000, 155000, TIMESTAMP WITH TIME ZONE '2020-07-14T10:00:00Z', 1);
 INSERT INTO tb_printerread (manufacturer, model, serial_number, ip_address, toner_remaining, toner_capacity, total_pages, date, computer_id) VALUES ('Lexmark', 'MX511', 'SN555', '192.168.1.151', 5200, 20000, 280000, TIMESTAMP WITH TIME ZONE '2020-07-14T10:00:00Z', 2);
 INSERT INTO tb_printerread (manufacturer, model, serial_number, ip_address, toner_remaining, toner_capacity, total_pages, date, computer_id) VALUES ('Lexmark', 'MX711', 'SN777', '192.168.1.151', 1800, 45000, 732000, TIMESTAMP WITH TIME ZONE '2020-07-14T10:00:00Z', 3);
+
+
+INSERT INTO tb_printer (manufacturer, model, serial_number, active) VALUES ('Xerox', 'XC1040', '123XC321', true);
+INSERT INTO tb_printer (manufacturer, model, serial_number, active) VALUES ('Minolta', 'MN1060', '12MNC321', true);
+INSERT INTO tb_printer (manufacturer, model, serial_number, active) VALUES ('Canon', 'CN2020', '123CN321', true);
