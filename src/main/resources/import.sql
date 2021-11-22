@@ -9,8 +9,12 @@ INSERT INTO tb_printerread (manufacturer, model, serial_number, ip_address, tone
 
 INSERT INTO tb_customer(name, cpf_cnpj, email, company, cell_phone, phone, street_address, zip_code_address, number_address, complement_address, district_address, city_address, state_address, country_address, comments) VALUES ('Cliente 1', '012321102', 'cliente1@one.com', 'Empresa One', '(24) 99999-9999', '(24) 2121-2121','Rua do consumo', '27000-000', '111', '1ª rua a direita', 'Campos Elíseos', 'Resende', 'RJ', 'Brasil', 'primeiro cliente da empresa');
 INSERT INTO tb_customer(name, cpf_cnpj, email, company, cell_phone, phone, street_address, zip_code_address, number_address, complement_address, district_address, city_address, state_address, country_address, comments) VALUES ('Cliente 2', '012321102', 'cliente1@two.com', 'Empresa Two', '(24) 99999-9999', '(24) 2121-2121','Rua do consumo', '27000-000', '222', '2ª rua a direita', 'Campos Elíseos', 'Resende', 'RJ', 'Brasil', 'segundo cliente da empresa');
+INSERT INTO tb_customer(name, cpf_cnpj, email, company, cell_phone, phone, street_address, zip_code_address, number_address, complement_address, district_address, city_address, state_address, country_address, comments) VALUES ('Cliente 3', '012321102', 'cliente1@three.com', 'Empresa Three', '(24) 99999-9999', '(24) 2121-2121','Rua do consumo', '27000-000', '333', '3ª rua a direita', 'Campos Elíseos', 'Resende', 'RJ', 'Brasil', 'segundo cliente da empresa');
 
+INSERT INTO tb_printer (manufacturer, model, serial_number, active) VALUES ('Xerox', 'XC1040', '123XC321', true);
+INSERT INTO tb_printer (manufacturer, model, serial_number, active) VALUES ('Minolta', 'MN1060', '12MNC321', true);
+INSERT INTO tb_printer (manufacturer, model, serial_number, active) VALUES ('Canon', 'CN2020', '123CN321', true);
 
-INSERT INTO tb_printer (manufacturer, model, serial_number, active, id_customer_fk) VALUES ('Xerox', 'XC1040', '123XC321', true, 1);
-INSERT INTO tb_printer (manufacturer, model, serial_number, active, id_customer_fk) VALUES ('Minolta', 'MN1060', '12MNC321', true, 2);
-INSERT INTO tb_printer (manufacturer, model, serial_number, active, id_customer_fk) VALUES ('Canon', 'CN2020', '123CN321', true, 2);
+INSERT INTO tb_customer_printers(customer_id, printers_id) VALUES (1, 1);
+INSERT INTO tb_customer_printers(customer_id, printers_id) VALUES (1, 2);
+INSERT INTO tb_customer_printers(customer_id, printers_id) VALUES (2, 3);

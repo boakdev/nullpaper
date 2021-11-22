@@ -27,12 +27,12 @@ public class CustomerDto implements Serializable {
     private String countryAddress;
     private String comments;
 
-    private Set<Printer> printers = new HashSet<>();
+    private Set<PrinterDto> printers = new HashSet<>();
 
     public CustomerDto() {
     }
 
-    public CustomerDto(Long id, String name, String cpfCnpj, String email, String company, String cellPhone, String phone, String streetAddress, String zipCodeAddress, String numberAddress, String complementAddress, String districtAddress, String cityAddress, String stateAddress, String countryAddress, String comments, Set<Printer> printers) {
+    public CustomerDto(Long id, String name, String cpfCnpj, String email, String company, String cellPhone, String phone, String streetAddress, String zipCodeAddress, String numberAddress, String complementAddress, String districtAddress, String cityAddress, String stateAddress, String countryAddress, String comments) {
         this.id = id;
         this.name = name;
         this.cpfCnpj = cpfCnpj;
@@ -49,7 +49,6 @@ public class CustomerDto implements Serializable {
         this.stateAddress = stateAddress;
         this.countryAddress = countryAddress;
         this.comments = comments;
-        this.printers = printers;
     }
 
     public CustomerDto(Customer entity) {
@@ -69,7 +68,12 @@ public class CustomerDto implements Serializable {
         stateAddress = entity.getStateAddress();
         countryAddress = entity.getCountryAddress();
         comments = entity.getComments();
-        printers = entity.getPrinters();
+
+    }
+
+    public CustomerDto(Customer entity, Set<Printer> printers){
+        this(entity);
+        printers.forEach(pri -> this.printers.add(new PrinterDto(pri)));
     }
 
     public Long getId() {
@@ -200,11 +204,11 @@ public class CustomerDto implements Serializable {
         this.comments = comments;
     }
 
-    public Set<Printer> getPrinters() {
+    public Set<PrinterDto> getPrinters() {
         return printers;
     }
 
-    public void setPrinters(Set<Printer> printers) {
+    public void setPrinters(Set<PrinterDto> printers) {
         this.printers = printers;
     }
 

@@ -14,19 +14,18 @@ public class PrinterDto implements Serializable {
     private String serialNumber;
     private boolean active;
 
-    private Customer customer;
 
     public PrinterDto() {
 
     }
 
-    public PrinterDto(Long id, String manufacturer, String model, String serialNumber, boolean active, Customer customer) {
+    public PrinterDto(Long id, String manufacturer, String model, String serialNumber, boolean active) {
         this.id = id;
         this.manufacturer = manufacturer;
         this.model = model;
         this.serialNumber = serialNumber;
         this.active = active;
-        this.customer = customer;
+
     }
 
     public PrinterDto(Printer entity) {
@@ -35,7 +34,6 @@ public class PrinterDto implements Serializable {
         model = entity.getModel();
         serialNumber = entity.getSerialNumber();
         active = entity.isActive();
-        customer = entity.getCustomer();
     }
 
     public Long getId() {
@@ -76,14 +74,6 @@ public class PrinterDto implements Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     @Override

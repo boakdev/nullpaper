@@ -16,9 +16,8 @@ public class Printer implements Serializable {
     private String serialNumber;
     private boolean active;
 
-    @ManyToOne
-    @JoinColumn(name = "id_customer_fk")
-    private Customer customer;
+
+
 
     public Printer() {
 
@@ -64,13 +63,6 @@ public class Printer implements Serializable {
         this.active = active;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -29,7 +29,7 @@ public class Customer implements Serializable {
     private String countryAddress;
     private String comments;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Printer> printers = new HashSet<>();
 
     public Customer() {
