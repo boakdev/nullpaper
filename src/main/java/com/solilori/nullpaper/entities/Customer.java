@@ -1,15 +1,17 @@
 package com.solilori.nullpaper.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_customer")
 public class Customer implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String cpfCnpj;
@@ -27,7 +29,8 @@ public class Customer implements Serializable {
     private String countryAddress;
     private String comments;
 
-    private List<Printer> printers;
+    @OneToMany(mappedBy = "customer")
+    private Set<Printer> printers = new HashSet<>();
 
     public Customer() {
 
@@ -161,11 +164,12 @@ public class Customer implements Serializable {
         this.comments = comments;
     }
 
-    public List<Printer> getPrinters() {
+
+    public Set<Printer> getPrinters() {
         return printers;
     }
 
-    public void setPrinters(List<Printer> printers) {
+    public void setPrinters(Set<Printer> printers) {
         this.printers = printers;
     }
 

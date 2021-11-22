@@ -4,8 +4,9 @@ import com.solilori.nullpaper.entities.Customer;
 import com.solilori.nullpaper.entities.Printer;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class CustomerDto implements Serializable {
 
@@ -26,12 +27,12 @@ public class CustomerDto implements Serializable {
     private String countryAddress;
     private String comments;
 
-    private List<Printer> printers;
+    private Set<Printer> printers = new HashSet<>();
 
     public CustomerDto() {
     }
 
-    public CustomerDto(Long id, String name, String cpfCnpj, String email, String company, String cellPhone, String phone, String streetAddress, String zipCodeAddress, String numberAddress, String complementAddress, String districtAddress, String cityAddress, String stateAddress, String countryAddress, String comments, List<Printer> printers) {
+    public CustomerDto(Long id, String name, String cpfCnpj, String email, String company, String cellPhone, String phone, String streetAddress, String zipCodeAddress, String numberAddress, String complementAddress, String districtAddress, String cityAddress, String stateAddress, String countryAddress, String comments, Set<Printer> printers) {
         this.id = id;
         this.name = name;
         this.cpfCnpj = cpfCnpj;
@@ -199,11 +200,11 @@ public class CustomerDto implements Serializable {
         this.comments = comments;
     }
 
-    public List<Printer> getPrinters() {
+    public Set<Printer> getPrinters() {
         return printers;
     }
 
-    public void setPrinters(List<Printer> printers) {
+    public void setPrinters(Set<Printer> printers) {
         this.printers = printers;
     }
 
