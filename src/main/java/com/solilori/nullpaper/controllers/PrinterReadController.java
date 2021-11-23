@@ -20,14 +20,14 @@ public class PrinterReadController {
 
 
     @GetMapping
-    public ResponseEntity<List<PrinterReadDto>> findAll() {
+    public ResponseEntity<List<PrinterReadDto>> get() {
         List<PrinterReadDto> listDto = printerReadService.findAll();
         return ResponseEntity.ok().body(listDto);
 
     }
 
     @GetMapping("/{serial}")
-    public ResponseEntity<List<PrinterReadDto>> findBySerialPrinter(@PathVariable String serial) {
+    public ResponseEntity<List<PrinterReadDto>> getBySerialPrinter(@PathVariable String serial) {
         List<PrinterReadDto> listDto = printerReadService.findBySerialPrinter(serial);
         return ResponseEntity.ok().body(listDto);
     }
@@ -40,7 +40,7 @@ public class PrinterReadController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<PrinterReadDto> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         printerReadService.delete(id);
         return ResponseEntity.noContent().build();
 

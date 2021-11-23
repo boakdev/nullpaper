@@ -1,41 +1,40 @@
-package com.solilori.nullpaper.entities;
+package com.solilori.nullpaper.dto;
 
-import javax.persistence.*;
+import com.solilori.nullpaper.entities.User;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity
-@Table(name = "tb_user")
-public class User implements Serializable {
+public class UserDto implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
-
-    @Column(unique = true)
     private String email;
-    private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    private Set<RoleDto> roles = new HashSet<>();
 
-    public User() {
+    public UserDto() {
 
     }
 
-    public User(Long id, String firstName, String lastName, String email, String password) {
+    public UserDto(Long id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
     }
+
+    public UserDto(User entity) {
+        id = entity.getId();
+        firstName = entity.getFirstName();
+        lastName = entity.getLastName();
+        email = entity.getEmail();
+        entity.getRoles().forEach(role -> this.roles.add(new RoleDto(role)));
+    }
+
 
     public Long getId() {
         return id;
@@ -69,15 +68,7 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<Role> getRoles() {
+    public Set<RoleDto> getRoles() {
         return roles;
     }
 
@@ -85,8 +76,8 @@ public class User implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id);
+        UserDto userDto = (UserDto) o;
+        return Objects.equals(id, userDto.id);
     }
 
     @Override

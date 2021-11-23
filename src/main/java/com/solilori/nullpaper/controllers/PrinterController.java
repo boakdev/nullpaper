@@ -43,7 +43,7 @@ public class PrinterController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<PrinterDto> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         printerService.delete(id);
         return ResponseEntity.noContent().build();
     }
