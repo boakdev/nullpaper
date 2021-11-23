@@ -18,3 +18,13 @@ INSERT INTO tb_printer (manufacturer, model, serial_number, active) VALUES ('Can
 INSERT INTO tb_customer_printers(customer_id, printers_id) VALUES (1, 1);
 INSERT INTO tb_customer_printers(customer_id, printers_id) VALUES (1, 2);
 INSERT INTO tb_customer_printers(customer_id, printers_id) VALUES (2, 3);
+
+INSERT INTO tb_user(first_name, last_name, email, password) VALUES ('Bruno', 'Carvalho', 'boakdev@gmail.com', '123');
+INSERT INTO tb_user(first_name, last_name, email, password) VALUES ('Andreia', 'Farias', 'andreia@gmail.com', '111');
+
+INSERT INTO tb_role(authority) VALUES ('ROLE_OPERATOR');
+INSERT INTO tb_role(authority) VALUES ('ROLE_ADMIN');
+
+INSERT INTO tb_user_role(user_id, role_id) VALUES (1, 1);
+INSERT INTO tb_user_role(user_id, role_id) VALUES (1, 2);
+INSERT INTO tb_user_role(user_id, role_id) VALUES (2, 1);
