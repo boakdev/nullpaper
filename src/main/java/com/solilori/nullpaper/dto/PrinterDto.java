@@ -1,11 +1,13 @@
 package com.solilori.nullpaper.dto;
 
 import com.solilori.nullpaper.entities.Printer;
+import com.solilori.nullpaper.services.validation.PrinterValid;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Objects;
 
+@PrinterValid
 public class PrinterDto implements Serializable {
 
     private Long id;
