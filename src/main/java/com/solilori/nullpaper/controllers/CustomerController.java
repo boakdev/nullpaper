@@ -4,11 +4,10 @@ import com.solilori.nullpaper.dto.CustomerDto;
 import com.solilori.nullpaper.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -25,9 +24,27 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerDto> getById(@PathVariable("id") Long id){
+    public ResponseEntity<CustomerDto> getById(@PathVariable("id") Long id) {
         CustomerDto dto = customerService.findById(id);
         return ResponseEntity.ok().body(dto);
+    }
 
+    @PostMapping
+    public ResponseEntity<CustomerDto> insert(@RequestBody CustomerDto dto) {
+        dto = customerService.insert(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<CustomerDto> update(@PathVariable Long id, @RequestBody CustomerDto dto) {
+        dto = customerService.update(id, dto);
+        return ResponseEntity.ok().body(dto);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        customerService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

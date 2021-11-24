@@ -49,7 +49,6 @@ public class PrinterService {
         try {
             Printer entity = printerRepository.getById(id);
             copyDtoToEntity(dto, entity);
-            entity.setId(id);
             entity = printerRepository.save(entity);
             return new PrinterDto(entity);
 
@@ -73,7 +72,6 @@ public class PrinterService {
 
 
     private void copyDtoToEntity(PrinterDto dto, Printer entity) {
-        entity.setId(dto.getId());
         entity.setManufacturer(dto.getManufacturer());
         entity.setModel(dto.getModel());
         entity.setSerialNumber(dto.getSerialNumber());

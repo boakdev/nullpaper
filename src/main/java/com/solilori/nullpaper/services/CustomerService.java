@@ -6,11 +6,14 @@ import com.solilori.nullpaper.entities.Customer;
 import com.solilori.nullpaper.entities.Printer;
 import com.solilori.nullpaper.repositories.CustomerRepository;
 import com.solilori.nullpaper.repositories.PrinterRepository;
+import com.solilori.nullpaper.services.exceptions.DatabaseException;
 import com.solilori.nullpaper.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,6 +38,40 @@ public class CustomerService {
         Optional<Customer> opt = customerRepository.findById(id);
         Customer entity = opt.orElseThrow(() -> new ResourceNotFoundException("Customer not found: " + id));
         return new CustomerDto(entity, entity.getPrinters());
+    }
+
+    @Transactional
+    public CustomerDto insert(CustomerDto dto) {
+        Customer entity = new Customer();
+        copyDtoToEntity(dto, entity);
+        entity = customerRepository.save(entity);
+        return new CustomerDto(entity);
+    }
+
+    @Transactional
+    public CustomerDto update(Long id, CustomerDto dto) {
+        try {
+            Customer entity = customerRepository.getById(id);
+            copyDtoToEntity(dto, entity);
+            entity = customerRepository.save(entity);
+            return new CustomerDto(entity);
+
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Customer not found: " + id);
+        }
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        try {
+            customerRepository.deleteById(id);
+
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Customer not found: " + id);
+
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Integrity DB violation");
+        }
     }
 
 
