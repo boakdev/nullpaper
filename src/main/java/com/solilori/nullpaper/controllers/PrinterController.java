@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -30,14 +31,14 @@ public class PrinterController {
     }
 
     @PostMapping
-    public ResponseEntity<PrinterDto> insert(@RequestBody PrinterDto dto) {
+    public ResponseEntity<PrinterDto> insert(@Valid @RequestBody PrinterDto dto) {
         dto = printerService.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<PrinterDto> update(@PathVariable("id") Long id, @RequestBody PrinterDto dto) {
+    public ResponseEntity<PrinterDto> update(@PathVariable("id") Long id, @Valid @RequestBody PrinterDto dto) {
         dto = printerService.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }

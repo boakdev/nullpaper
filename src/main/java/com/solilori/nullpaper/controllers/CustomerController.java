@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -30,14 +31,14 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDto> insert(@RequestBody CustomerDto dto) {
+    public ResponseEntity<CustomerDto> insert(@Valid @RequestBody CustomerDto dto) {
         dto = customerService.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CustomerDto> update(@PathVariable Long id, @RequestBody CustomerDto dto) {
+    public ResponseEntity<CustomerDto> update(@PathVariable Long id, @Valid @RequestBody CustomerDto dto) {
         dto = customerService.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }

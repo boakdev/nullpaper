@@ -2,6 +2,9 @@ package com.solilori.nullpaper.dto;
 
 import com.solilori.nullpaper.entities.User;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -10,8 +13,13 @@ import java.util.Set;
 public class UserDto implements Serializable {
 
     private Long id;
+
+    @Size(min = 3, max = 20, message = "Nome deve ter entre 3 e 20 caracteres")
+    @NotBlank(message = "Campo obrigatório")
     private String firstName;
     private String lastName;
+
+    @Email(message = "Informar um email válido")
     private String email;
 
     private Set<RoleDto> roles = new HashSet<>();

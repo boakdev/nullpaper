@@ -3,6 +3,7 @@ package com.solilori.nullpaper.dto;
 import com.solilori.nullpaper.entities.Customer;
 import com.solilori.nullpaper.entities.Printer;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -11,7 +12,10 @@ import java.util.Set;
 public class CustomerDto implements Serializable {
 
     private Long id;
+
+    @NotBlank(message = "Campo obrigatório")
     private String name;
+
     private String cpfCnpj;
     private String email;
     private String company;

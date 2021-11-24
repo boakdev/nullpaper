@@ -1,16 +1,22 @@
 package com.solilori.nullpaper.dto;
 
-import com.solilori.nullpaper.entities.Customer;
 import com.solilori.nullpaper.entities.Printer;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class PrinterDto implements Serializable {
 
     private Long id;
+
+    @NotBlank(message = "Campo obrigatório")
     private String manufacturer;
+
+    @NotBlank(message = "Campo obrigatório")
     private String model;
+
+    @NotBlank(message = "Campo obrigatório")
     private String serialNumber;
     private boolean active;
 
