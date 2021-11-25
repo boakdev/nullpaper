@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolationException;
+import java.sql.SQLDataException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -57,7 +60,7 @@ public class PrinterService {
         }
     }
 
-    @Transactional
+
     public void delete(Long id) {
         try {
             printerRepository.deleteById(id);
@@ -66,7 +69,8 @@ public class PrinterService {
             throw new ResourceNotFoundException("Printer ID not found: " + id);
 
         } catch (DataIntegrityViolationException e) {
-            throw new DatabaseException("Integrity DB violation");
+            throw new DatabaseException("Integrity DB violation" + id);
+
         }
     }
 

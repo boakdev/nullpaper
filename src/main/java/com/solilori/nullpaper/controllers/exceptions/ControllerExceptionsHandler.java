@@ -69,5 +69,4 @@ public class ControllerExceptionsHandler {
         return ResponseEntity.status(status).body(err);
     }
 
-
 }

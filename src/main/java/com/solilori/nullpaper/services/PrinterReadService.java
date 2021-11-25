@@ -85,7 +85,6 @@ public class PrinterReadService {
         }
     }
 
-    @Transactional
     public void delete(Long id) {
 
         try {
