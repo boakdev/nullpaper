@@ -3,6 +3,7 @@ package com.solilori.nullpaper.services;
 import com.solilori.nullpaper.dto.RoleDto;
 import com.solilori.nullpaper.dto.UserDto;
 import com.solilori.nullpaper.dto.UserInsertDto;
+import com.solilori.nullpaper.dto.UserUpdateDto;
 import com.solilori.nullpaper.entities.Role;
 import com.solilori.nullpaper.entities.User;
 import com.solilori.nullpaper.repositories.RoleRepository;
@@ -57,7 +58,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto update(Long id, UserDto dto) {
+    public UserDto update(Long id, UserUpdateDto dto) {
         try {
             User entity = userRepository.getById(id);
             copyDtoToEntity(dto, entity);

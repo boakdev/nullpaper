@@ -2,6 +2,7 @@ package com.solilori.nullpaper.controllers;
 
 import com.solilori.nullpaper.dto.UserDto;
 import com.solilori.nullpaper.dto.UserInsertDto;
+import com.solilori.nullpaper.dto.UserUpdateDto;
 import com.solilori.nullpaper.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,9 +40,9 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserDto> update(@PathVariable("id") Long id, @Valid @RequestBody UserDto dto) {
-        dto = userService.update(id, dto);
-        return ResponseEntity.ok().body(dto);
+    public ResponseEntity<UserDto> update(@PathVariable("id") Long id, @Valid @RequestBody UserUpdateDto dto) {
+        UserDto newDto = userService.update(id, dto);
+        return ResponseEntity.ok().body(newDto);
     }
 
     @DeleteMapping(value = "/{id}")
