@@ -24,6 +24,7 @@ public class PrinterRead implements Serializable {
     private Instant date;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_computer_fk")
     private Computer computer;
 
     public PrinterRead() {

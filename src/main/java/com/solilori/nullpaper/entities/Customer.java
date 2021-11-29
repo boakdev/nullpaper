@@ -1,5 +1,7 @@
 package com.solilori.nullpaper.entities;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -29,7 +31,8 @@ public class Customer implements Serializable {
     private String countryAddress;
     private String comments;
 
-    @OneToMany(fetch = FetchType.EAGER)
+
+    @OneToMany
     private Set<Printer> printers = new HashSet<>();
 
     public Customer() {

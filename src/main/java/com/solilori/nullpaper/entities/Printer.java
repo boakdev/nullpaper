@@ -1,5 +1,7 @@
 package com.solilori.nullpaper.entities;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -15,9 +17,6 @@ public class Printer implements Serializable {
     private String model;
     private String serialNumber;
     private boolean active;
-
-
-
 
     public Printer() {
 

@@ -1,5 +1,6 @@
 package com.solilori.nullpaper.dto;
 
+import com.solilori.nullpaper.entities.Customer;
 import com.solilori.nullpaper.entities.Printer;
 import com.solilori.nullpaper.services.validation.PrinterValid;
 
@@ -23,6 +24,8 @@ public class PrinterDto implements Serializable {
     private boolean active;
 
 
+
+
     public PrinterDto() {
 
     }
@@ -34,6 +37,7 @@ public class PrinterDto implements Serializable {
         this.serialNumber = serialNumber;
         this.active = active;
 
+
     }
 
     public PrinterDto(Printer entity) {
@@ -42,7 +46,7 @@ public class PrinterDto implements Serializable {
         model = entity.getModel();
         serialNumber = entity.getSerialNumber();
         active = entity.isActive();
-    }
+            }
 
     public Long getId() {
         return id;
@@ -83,6 +87,7 @@ public class PrinterDto implements Serializable {
     public void setActive(boolean active) {
         this.active = active;
     }
+
 
     @Override
     public boolean equals(Object o) {
