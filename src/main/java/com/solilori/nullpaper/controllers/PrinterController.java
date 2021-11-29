@@ -13,6 +13,9 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 @Tag(name = "Printer API", description = "Manage printer data")
 @RequestMapping(value = "/printers")
@@ -25,6 +28,7 @@ public class PrinterController {
     @Operation(description = "Find all printers")
     public ResponseEntity<List<PrinterDto>> get() {
         List<PrinterDto> listDto = printerService.findAll();
+        listDto.forEach(dto -> dto.add(linkTo(methodOn(PrinterController.class).getById(dto.getId())).withSelfRel()));
         return ResponseEntity.ok().body(listDto);
     }
 
@@ -32,6 +36,7 @@ public class PrinterController {
     @Operation(description = "Find a specific printer by id")
     public ResponseEntity<PrinterDto> getById(@PathVariable("id") Long id) {
         PrinterDto dto = printerService.findById(id);
+        dto.add(linkTo(methodOn(PrinterController.class).get()).withRel("List all printers"));
         return ResponseEntity.ok().body(dto);
     }
 

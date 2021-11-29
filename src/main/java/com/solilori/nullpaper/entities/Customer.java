@@ -32,7 +32,7 @@ public class Customer implements Serializable {
     private String comments;
 
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Printer> printers = new HashSet<>();
 
     public Customer() {

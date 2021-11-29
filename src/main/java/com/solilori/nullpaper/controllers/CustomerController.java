@@ -1,6 +1,7 @@
 package com.solilori.nullpaper.controllers;
 
 import com.solilori.nullpaper.dto.CustomerDto;
+import com.solilori.nullpaper.dto.PrinterDto;
 import com.solilori.nullpaper.services.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -8,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -25,6 +29,10 @@ public class CustomerController {
     @Operation(description = "Find all customers")
     public ResponseEntity<List<CustomerDto>> get() {
         List<CustomerDto> list = customerService.findAll();
+        for (CustomerDto dto : list) {
+            dto.add(linkTo(methodOn(CustomerController.class).getById(dto.getId())).withSelfRel());
+            dto.getPrinters().forEach(pdto -> pdto.add(linkTo(methodOn(PrinterController.class).getById(pdto.getId())).withSelfRel()));
+        }
         return ResponseEntity.ok().body(list);
     }
 
@@ -32,6 +40,8 @@ public class CustomerController {
     @Operation(description = "Find a specific customer by id")
     public ResponseEntity<CustomerDto> getById(@PathVariable("id") Long id) {
         CustomerDto dto = customerService.findById(id);
+        dto.getPrinters().forEach(pdto -> pdto.add(linkTo(methodOn(PrinterController.class).getById(pdto.getId())).withSelfRel()));
+        dto.add(linkTo(methodOn(CustomerController.class).get()).withRel("List all customers"));
         return ResponseEntity.ok().body(dto);
     }
 

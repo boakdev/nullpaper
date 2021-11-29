@@ -2,12 +2,13 @@ package com.solilori.nullpaper.dto;
 
 import com.solilori.nullpaper.entities.Computer;
 import com.solilori.nullpaper.entities.PrinterRead;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
-public class PrinterReadDto implements Serializable {
+public class PrinterReadDto extends RepresentationModel<PrinterReadDto> implements Serializable {
 
     private Long id;
     private String manufacturer;

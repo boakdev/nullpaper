@@ -1,15 +1,15 @@
 package com.solilori.nullpaper.dto;
 
-import com.solilori.nullpaper.entities.Customer;
 import com.solilori.nullpaper.entities.Printer;
 import com.solilori.nullpaper.services.validation.PrinterValid;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Objects;
 
 @PrinterValid
-public class PrinterDto implements Serializable {
+public class PrinterDto extends RepresentationModel<PrinterDto> implements Serializable {
 
     private Long id;
 
@@ -22,8 +22,6 @@ public class PrinterDto implements Serializable {
     @NotBlank(message = "Campo obrigatório")
     private String serialNumber;
     private boolean active;
-
-
 
 
     public PrinterDto() {
@@ -46,7 +44,7 @@ public class PrinterDto implements Serializable {
         model = entity.getModel();
         serialNumber = entity.getSerialNumber();
         active = entity.isActive();
-            }
+    }
 
     public Long getId() {
         return id;

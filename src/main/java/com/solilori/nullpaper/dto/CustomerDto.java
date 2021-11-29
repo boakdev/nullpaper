@@ -2,6 +2,7 @@ package com.solilori.nullpaper.dto;
 
 import com.solilori.nullpaper.entities.Customer;
 import com.solilori.nullpaper.entities.Printer;
+import org.springframework.hateoas.RepresentationModel;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -9,7 +10,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class CustomerDto implements Serializable {
+public class CustomerDto extends RepresentationModel<CustomerDto> implements Serializable {
 
     private Long id;
 
@@ -75,7 +76,7 @@ public class CustomerDto implements Serializable {
 
     }
 
-    public CustomerDto(Customer entity, Set<Printer> printers){
+    public CustomerDto(Customer entity, Set<Printer> printers) {
         this(entity);
         printers.forEach(pri -> this.printers.add(new PrinterDto(pri)));
     }

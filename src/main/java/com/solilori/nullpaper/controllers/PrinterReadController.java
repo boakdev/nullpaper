@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.net.URI;
 import java.util.List;
 
@@ -25,14 +28,18 @@ public class PrinterReadController {
     @Operation(description = "Find all printer reads")
     public ResponseEntity<List<PrinterReadDto>> get() {
         List<PrinterReadDto> listDto = printerReadService.findAll();
+        listDto.forEach(dto -> dto.add(linkTo(methodOn(PrinterReadController.class)
+                .getBySerialPrinter(dto.getSerialNumber())).withSelfRel()));
         return ResponseEntity.ok().body(listDto);
 
     }
 
     @GetMapping("/{serial}")
-    @Operation(description = "Find a specific printer read by serial number")
+    @Operation(description = "Find all specific printer read by serial number")
     public ResponseEntity<List<PrinterReadDto>> getBySerialPrinter(@PathVariable String serial) {
         List<PrinterReadDto> listDto = printerReadService.findBySerialPrinter(serial);
+        listDto.forEach(dto -> dto.add(linkTo(methodOn(PrinterReadController.class)
+                .getBySerialPrinter(dto.getSerialNumber())).withSelfRel()));
         return ResponseEntity.ok().body(listDto);
     }
 
